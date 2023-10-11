@@ -4,7 +4,9 @@
              x:Class="Kalkulator_Walut.MainPage">
 
 
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="30"
+        Padding="30">
 
 
 
@@ -15,39 +17,48 @@
 
         <HorizontalStackLayout>
             <Label
+                FontSize="28"
             Text="Kwota"/>
             <Entry
+                FontSize="28"
                 x:Name="kwotaEnt"/>
         </HorizontalStackLayout>
 
         <HorizontalStackLayout>
             <Label
+                FontSize="28"
             Text="Otrzymasz: "/>
             <Label
+                FontSize="28"
                 x:Name="otrzymaszLbl"
                 Text=""/>
         </HorizontalStackLayout>
         
         <HorizontalStackLayout>
             <Label
+                FontSize="28"
                 Text="kurs 1€ = "/>
             <Label
                 x:Name="kursLbl"
+                FontSize="28"
                 Text="4,55"/>
             <Label
+                FontSize="28"
                 Text="PLN"/>
         </HorizontalStackLayout>
 
         <HorizontalStackLayout>
             <Button
                 x:Name="euroNaPlnBtn"
-                Text="Euro -> PLN"
+                Text="€ --> ZŁ"
+                FontSize="30"
                 WidthRequest="150"
                 Clicked="OnEuroClicked"/>
 
             <Button
                 x:Name="plnNaEuroBtn"
-                Text="PLN -> Euro"
+                FontSize="30"
+                Text="ZŁ --> €"
                 WidthRequest="150"
                 Clicked="OnPlnClicked"
                 IsEnabled="false"/>
