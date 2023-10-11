@@ -7,29 +7,18 @@ namespace Kalkulator_Walut
 {
     class Waluta
     {
-        private string kodWaluty = "eur";
+        public string kodWaluty { get; private set; }
         public string waluta { get; private set;}
-        private string data = "2023-10-11";
-        public double skup { get; }
-        public double sprzedaz { get; }
+        public string data { get; private set; } = "2023-10-11";
+        public double skup { get; private set; }
+        public double sprzedaz { get; private set; }
         public Waluta(string code = "eur")
         {
-            if (code.Length > 0)
-            {
-                kodWaluty = code;
-            }
-        }
-    }
-
-    public partial class MainPage : ContentPage
-    {
-
-        private void PobierzDane()
-        {
+            kodWaluty = code;
             string wynik;
             using (var webClient = new WebClient())
             {
-                wynik = webClient.DownloadString("https://api.nbp.pl/api/exchangerates/rates/c/" + kodWaluty + "/"+data+"/?format=json");
+                wynik = webClient.DownloadString("https://api.nbp.pl/api/exchangerates/rates/c/" + kodWaluty + "/" + data + "/?format=json");
                 using JsonDocument j1 = JsonDocument.Parse(wynik);
                 JsonElement json = j1.RootElement;
                 waluta = json.GetProperty("currency").ToString();
@@ -38,11 +27,15 @@ namespace Kalkulator_Walut
                 string ask = rate.GetProperty("ask").ToString();
                 ask = ask.Replace('.', ',');
                 string bid = rate.GetProperty("bid").ToString();
-                bid = bid.Replace(".", ",");    
+                bid = bid.Replace(".", ",");
                 skup = double.Parse(ask);
                 sprzedaz = double.Parse(bid);
             }
         }
+    }
+
+    public partial class MainPage : ContentPage
+    {
         public MainPage()
         {
             InitializeComponent();
@@ -61,11 +54,13 @@ namespace Kalkulator_Walut
 
         private void OnPrzeliczClicked(object sender, EventArgs e)
         {
-            PobierzDane();
+            Waluta w = new Waluta("eur");
+
+
             if (euroNaPlnBtn.IsEnabled==true)
-                otrzymaszLbl.Text = ( Math.Round(float.Parse(kwotaEnt.Text) * sprzedaz,2)).ToString() + "PLN";
+                otrzymaszLbl.Text = ( Math.Round(float.Parse(kwotaEnt.Text) * w.sprzedaz,2)).ToString() + "PLN";
             else
-                otrzymaszLbl.Text = (Math.Round(float.Parse(kwotaEnt.Text) / sprzedaz,2)).ToString() + "€";
+                otrzymaszLbl.Text = (Math.Round(float.Parse(kwotaEnt.Text) / w.sprzedaz,2)).ToString() + "€";
             SemanticScreenReader.Announce(otrzymaszLbl.Text);
             PickerTitle.Text = picker.SelectedIndex.ToString();
             SemanticScreenReader.Announce(PickerTitle.Text);
