@@ -36,31 +36,34 @@ namespace Kalkulator_Walut
 
     public partial class MainPage : ContentPage
     {
+        Waluta w;
         public MainPage()
         {
             InitializeComponent();
+            w = new Waluta("eur");
         }
         private void OnEuroClicked(object sender, EventArgs e)
         {
             euroNaPlnBtn.IsEnabled = false;
             plnNaEuroBtn.IsEnabled = true;
+            Ramzamzam.Text = w.waluta;
+            SemanticScreenReader.Announce(Ramzamzam.Text);
         }
 
         private void OnPlnClicked(object sender, EventArgs e)
         {
             plnNaEuroBtn.IsEnabled = false;
             euroNaPlnBtn.IsEnabled = true;
+            Ramzamzam.Text = w.waluta;
+            SemanticScreenReader.Announce(Ramzamzam.Text);
         }
 
         private void OnPrzeliczClicked(object sender, EventArgs e)
-        {
-            Waluta w = new Waluta("eur");
-
-
+        { 
             if (euroNaPlnBtn.IsEnabled==true)
-                otrzymaszLbl.Text = ( Math.Round(float.Parse(kwotaEnt.Text) * w.sprzedaz,2)).ToString() + "PLN";
+                otrzymaszLbl.Text = ( Math.Round(float.Parse(kwotaEnt.Text) * w.skup,2)).ToString() + "PLN";
             else
-                otrzymaszLbl.Text = (Math.Round(float.Parse(kwotaEnt.Text) / w.sprzedaz,2)).ToString() + "€";
+                otrzymaszLbl.Text = (Math.Round(float.Parse(kwotaEnt.Text) / w.skup,2)).ToString() + "€";
             SemanticScreenReader.Announce(otrzymaszLbl.Text);
             PickerTitle.Text = picker.SelectedIndex.ToString();
             SemanticScreenReader.Announce(PickerTitle.Text);

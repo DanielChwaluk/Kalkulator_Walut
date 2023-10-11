@@ -19,6 +19,11 @@
             <Entry
                 FontSize="28"
                 x:Name="kwotaEnt"/>
+            <Label
+                Text="€"
+                FontSize="28"
+                x:Name="Ramzamzam"
+                />
         </HorizontalStackLayout>
 
         <HorizontalStackLayout>
