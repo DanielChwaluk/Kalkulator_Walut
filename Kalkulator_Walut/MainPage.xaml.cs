@@ -45,7 +45,9 @@ namespace Kalkulator_Walut
         }
         private void OnSprzedajeClicked(object sender, EventArgs e)
         {
-            string t = kwotaEnt.Text.Replace(".", ",");
+            string t = "";
+            if (kwotaEnt.Text != null) t = kwotaEnt.Text.ToString();
+            if (t.Contains(".")) t = t.Replace(".", ",");
             double kwotaZr = (double.TryParse(t, out double number)) ? kwotaZr = double.Parse(kwotaEnt.Text) : kwotaZr = 0;
             if (kwotaZr < 0) kwotaZr = 0;
             double kwotaWy = Math.Round(kwotaZr * w.skup,2);
@@ -56,7 +58,9 @@ namespace Kalkulator_Walut
         }
         private void OnKupujeClicked(object sender, EventArgs e)
         {
-            string t = kwotaEnt.Text.Replace(".", ",");
+            string t = "";
+            if (kwotaEnt.Text != null) t = kwotaEnt.Text.ToString();
+            if (t.Contains(".")) t = t.Replace(".", ",");
             double kwotaZr = (double.TryParse(t, out double number)) ? kwotaZr = double.Parse(kwotaEnt.Text) : kwotaZr = 0;
             if (kwotaZr < 0) kwotaZr = 0;
             double kwotaWy = Math.Round(kwotaZr * w.sprzedaz,2);
@@ -69,7 +73,7 @@ namespace Kalkulator_Walut
         {
             euroNaPlnBtn.IsEnabled = false;
             plnNaEuroBtn.IsEnabled = true;
-            Ramzamzam.Text = "Zł";
+            Ramzamzam.Text = "";
             SemanticScreenReader.Announce(Ramzamzam.Text);
         }
 
@@ -83,7 +87,9 @@ namespace Kalkulator_Walut
 
         private void OnPrzeliczClicked(object sender, EventArgs e)
         {
-            string t = kwotaEnt.Text.Replace(".", ",");
+            string t = "";
+            if (kwotaEnt.Text != null) t = kwotaEnt.Text.ToString();
+            if (t.Contains(".")) t = t.Replace(".", ",");
             double kwotaZr = (double.TryParse(t,out double number)) ? kwotaZr = double.Parse(kwotaEnt.Text) : kwotaZr = 0;
             if (kwotaZr < 0) kwotaZr = 0;
             if (euroNaPlnBtn.IsEnabled==true)
