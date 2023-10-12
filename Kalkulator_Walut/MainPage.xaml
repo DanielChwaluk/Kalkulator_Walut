@@ -20,15 +20,27 @@
                 FontSize="28"
                 x:Name="kwotaEnt"/>
             <Label
-                Text="€"
+                Text="euro"
                 FontSize="28"
                 x:Name="Ramzamzam"
+                />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Button
+                Text="Kupuję"
+                Clicked="OnKupujeClicked"
+                WidthRequest="150"/>
+            <Button
+                Text="Sprzedaje"
+                Clicked="OnSprzedajeClicked"
+                WidthRequest="150"
                 />
         </HorizontalStackLayout>
 
         <HorizontalStackLayout>
             <Label
                 FontSize="28"
+                x:Name="OtLbl"
             Text="Otrzymasz: "/>
             <Label
                 FontSize="28"

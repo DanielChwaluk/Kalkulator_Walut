@@ -33,6 +33,7 @@ namespace Kalkulator_Walut
             }
         }
     }
+    
 
     public partial class MainPage : ContentPage
     {
@@ -42,11 +43,33 @@ namespace Kalkulator_Walut
             InitializeComponent();
             w = new Waluta("eur");
         }
+        private void OnSprzedajeClicked(object sender, EventArgs e)
+        {
+            string t = kwotaEnt.Text.Replace(".", ",");
+            double kwotaZr = (double.TryParse(t, out double number)) ? kwotaZr = double.Parse(kwotaEnt.Text) : kwotaZr = 0;
+            if (kwotaZr < 0) kwotaZr = 0;
+            double kwotaWy = Math.Round(kwotaZr * w.skup,2);
+            otrzymaszLbl.Text = kwotaWy.ToString();
+            OtLbl.Text = "Otrzymasz: ";
+            SemanticScreenReader.Announce(OtLbl.Text);
+            SemanticScreenReader.Announce(otrzymaszLbl.Text);
+        }
+        private void OnKupujeClicked(object sender, EventArgs e)
+        {
+            string t = kwotaEnt.Text.Replace(".", ",");
+            double kwotaZr = (double.TryParse(t, out double number)) ? kwotaZr = double.Parse(kwotaEnt.Text) : kwotaZr = 0;
+            if (kwotaZr < 0) kwotaZr = 0;
+            double kwotaWy = Math.Round(kwotaZr * w.sprzedaz,2);
+            otrzymaszLbl.Text = kwotaWy.ToString();
+            OtLbl.Text = "Zapłacisz: ";
+            SemanticScreenReader.Announce(OtLbl.Text);
+            SemanticScreenReader.Announce(otrzymaszLbl.Text);
+        }
         private void OnEuroClicked(object sender, EventArgs e)
         {
             euroNaPlnBtn.IsEnabled = false;
             plnNaEuroBtn.IsEnabled = true;
-            Ramzamzam.Text = w.waluta;
+            Ramzamzam.Text = "Zł";
             SemanticScreenReader.Announce(Ramzamzam.Text);
         }
 
@@ -59,13 +82,18 @@ namespace Kalkulator_Walut
         }
 
         private void OnPrzeliczClicked(object sender, EventArgs e)
-        { 
+        {
+            string t = kwotaEnt.Text.Replace(".", ",");
+            double kwotaZr = (double.TryParse(t,out double number)) ? kwotaZr = double.Parse(kwotaEnt.Text) : kwotaZr = 0;
+            if (kwotaZr < 0) kwotaZr = 0;
             if (euroNaPlnBtn.IsEnabled==true)
-                otrzymaszLbl.Text = ( Math.Round(float.Parse(kwotaEnt.Text) * w.skup,2)).ToString() + "PLN";
+                otrzymaszLbl.Text = ( Math.Round(kwotaZr * w.skup,2)).ToString() + "PLN";
             else
-                otrzymaszLbl.Text = (Math.Round(float.Parse(kwotaEnt.Text) / w.skup,2)).ToString() + "€";
+                otrzymaszLbl.Text = (Math.Round(kwotaZr / w.skup,2)).ToString() + "€";
+            OtLbl.Text = "Otrzymasz: ";
+            SemanticScreenReader.Announce(OtLbl.Text);
             SemanticScreenReader.Announce(otrzymaszLbl.Text);
-            PickerTitle.Text = picker.SelectedIndex.ToString();
+            //PickerTitle.Text = picker.ind
             SemanticScreenReader.Announce(PickerTitle.Text);
         }
     }
